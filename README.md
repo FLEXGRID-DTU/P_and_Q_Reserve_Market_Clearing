@@ -1,4 +1,4 @@
-# P_and_Q_Reserve_Market_Clearing
+# P_and_Q_Reserve_Continuous_Market_Clearing
 Real and reactive power market clearing using LinDisFlow
 
 ## Data files
