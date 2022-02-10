@@ -10,8 +10,10 @@ import ast
 from Market_clearing import Market_clearing
 #%% Case data
 
-Setpoint_P = pd.read_csv('Data_Files\Setpoint_P.csv',index_col='Time_target',converters={1:ast.literal_eval}) # Baseline injections at each node (negative for retrieval)
-Setpoint_Q  = pd.read_csv('Data_Files\Setpoint_Q.csv',index_col='Time_target',converters={1:ast.literal_eval})
+Setpoint_P = pd.read_csv('Data_Files\Setpoint_P.csv',index_col='timetarget',converters={1:ast.literal_eval}) # Baseline injections at each node (negative for retrieval)
+Setpoint_P.columns = ['Setpoint_P']
+Setpoint_Q  = pd.read_csv('Data_Files\Setpoint_Q.csv',index_col='timetarget',converters={1:ast.literal_eval})
+Setpoint_Q.columns = ['Setpoint_Q']
 
 Setpoint=pd.DataFrame([], columns=['Setpoint_P','Setpoint_Q'], index=Setpoint_P.index)
 
