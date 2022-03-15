@@ -14,8 +14,9 @@ def LinDistFlow_check(SetpointGP, SetpointGQ,Quantity,offer_bus,request_bus,dire
     lines_data = pd.read_excel(open('Data_Files/network15bus.xlsx', 'rb'),sheet_name='Branch',index_col=0)
     lines = list(lines_data.index)  # index for lines
     lines_data.columns = ['From','To','R','X','Lim']
-    bus_data = pd.read_excel(open('Data_Files/network15bus.xlsx', 'rb'),sheet_name='Bus',index_col=0)
-    bus_data.columns = ['type', 'Vmax', 'Vmin']
+    bus_data = pd.read_excel(open('Data_Files/network15bus.xlsx', 'rb'),sheet_name='Bus')
+    ref_index = bus_data[bus_data['type'] == 3].index[0]
+    bus_data.set_index("nodeId", inplace = True)    bus_data.columns = ['type', 'Vmax', 'Vmin']
     nodes = list(bus_data.index)    # index for nodes
     Vmax=bus_data['Vmax'].to_numpy()
     Vmin=bus_data['Vmin'].to_numpy()
@@ -87,7 +88,7 @@ def LinDistFlow_check(SetpointGP, SetpointGQ,Quantity,offer_bus,request_bus,dire
         #%% Finding Voltage 
         
         Av=np.append(np.zeros((1,no_of_nodes)),IM , axis=0)
-        Av[0][0]=1
+        Av[0][ref_index]=1
         Bv=np.append(1,2*(np.multiply(r,Line_P)+np.multiply(x,Line_Q)))
         Node_V= np.linalg.solve(Av,Bv)
 
